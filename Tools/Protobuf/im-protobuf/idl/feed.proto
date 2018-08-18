@@ -1,0 +1,58 @@
+syntax = "proto2";
+
+option go_package="git.byted.org/ee/lark/im-protobuf/improto/feed";
+option java_package="com.ss.android.lark.pb";
+
+import "entities.proto";
+
+enum FeedType {
+	INBOX = 1;
+	DONE = 2;
+}
+
+enum PullType {
+	REFRESH = 1;
+	LOAD_MORE = 2;
+}
+
+// feed 翻页加载请求
+message PullFeedCardsRequest {
+	required FeedType type = 1 [default = INBOX];
+	required PullType pull_type= 2;
+	optional int64 cursor = 3;
+	optional int32 count = 4 [default = 20];
+}
+
+// feed 翻页加载响应
+message PullFeedCardsResponse {
+	repeated FeedCard cards = 3;
+	map<string, Chat> chats = 1;
+	map<string, Message> messages = 2;
+	optional int64 next_cursor = 4 [default = 0];
+}
+
+message FeedCard {
+	enum Type {
+		CHAT = 1;
+		MAIL = 2;
+	}
+	optional string id = 1;
+	optional Type type = 2 [default = CHAT];
+	optional int64 update_time = 3;
+}
+
+// 下发一个 feed card
+message PushFeedCardsRequest {
+	required FeedType type = 1 [default = DONE];
+	repeated FeedCard cards = 2;
+}
+
+message PatchFeedCardsRequest {
+	// 时间戳由服务端来决定更精确一些
+	required FeedType type = 1 [default = DONE];
+	repeated string ids = 2;
+}
+
+message PatchFeedCardsResponse {
+	// 客户端等服务端成功后的 push 来处理 feed 的变化
+}

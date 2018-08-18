@@ -1,0 +1,19 @@
+syntax = "proto2";
+
+option go_package="git.byted.org/ee/lark/im-protobuf/improto/posts";
+option java_package="com.ss.android.lark.pb";
+
+import "entities.proto";
+
+service PostGreeter {
+  rpc getPostComments (PullPostCommentsReqeust) returns (PullPostCommentsResponse) {}
+}
+// 获取帖子详情页接口
+message PullPostCommentsReqeust{
+  required string post_id = 1; // 要获取详情页的根级帖ID
+}
+
+message PullPostCommentsResponse{
+  required string root_post_id = 1; // 当前详情页根级帖 ID
+  repeated string child_post_ids = 2; // 当前详情页所有回帖 ID
+}

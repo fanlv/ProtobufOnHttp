@@ -1,0 +1,73 @@
+syntax = "proto2";
+option java_package = "com.bytedance.lark.pb";
+
+import "entities.proto";
+
+enum Operation {
+    ADD                                    = 1;
+    DELETE                                 = 2;
+    CHANGED_TO                             = 3;
+}
+
+message Member {
+    enum Type {
+        CHATTER                            = 1;
+        CHAT                               = 2;
+    }
+    required string id                     = 1; // chatter_id or chat_id
+    required Type type                     = 2;
+    optional string inviter_id             = 3;
+    optional int64 join_time               = 4;
+}
+
+// CreateEmail: async
+
+message CreateEmailRequest {
+    repeated Member to                     = 1; // 收件人
+    repeated Member cc                     = 2; // 抄送人
+    optional QuasiContent content          = 3;
+    optional string root_id                = 4 [default = ''];
+}
+
+message CreateEmailResponse  {
+    repeated Member to                     = 1;
+    repeated Member cc                     = 2;
+    required string message_id             = 3;
+    optional Entity entity                 = 4;
+}
+
+// GetEmailMembers: async
+
+message GetEmailMembersRequest {
+    optional string email_id                = 1;
+}
+
+message GetEmailMembersResponse {
+    repeated Member to                      = 1;
+    repeated Member cc                      = 2;
+    optional Entity entity                  = 3;
+}
+
+// UpdateEmailMembers: async
+
+message UpdateEmailMembersRequest {
+    optional string email_id                = 1;
+    optional Operation operation            = 2;
+    repeated Member to                      = 3;
+    repeated Member cc                      = 4;
+}
+
+message UpdateEmailMembersResponse {
+}
+
+// PushEmailMembers
+
+message PushEmailMembersRequest {
+    optional string email_id                = 1;
+    optional string operator_id             = 2;
+    optional Operation operation            = 3;
+    repeated Member to                      = 4;
+    repeated Member cc                      = 5;
+    optional int64 update_time              = 6;
+    optional Entity entity                  = 7;
+}

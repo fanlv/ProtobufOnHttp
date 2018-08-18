@@ -1,0 +1,28 @@
+syntax = "proto2";
+option java_package = "com.bytedance.lark.pb";
+
+import "entities.proto";
+
+// UploadImage: async
+
+message UploadImageRequest {
+    required bytes image                         = 1;
+}
+
+message UploadImageResponse {
+    optional string local_key                    = 1; // 如果 local_key 存在，它即是消息的 cid，也是本地构造的 image_key
+    optional ImageSet image_set                  = 2;
+}
+
+// GetChatImages: sync
+
+message GetChatImagesRequest {
+    required string chat_id                      = 1;
+    optional int64 cursor                        = 2 [default = 0];
+    optional int32 count                         = 3 [default = 20];
+}
+
+message GetChatImagesResponse {
+    repeated ImageSet image_sets                 = 1;
+    optional int64 next_cursor                   = 2 [default = 0];
+}

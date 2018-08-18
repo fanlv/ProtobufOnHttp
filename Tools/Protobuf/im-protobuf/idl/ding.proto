@@ -1,0 +1,103 @@
+syntax = "proto2";
+
+option go_package = "git.byted.org/ee/lark/im-protobuf/improto/messages";
+option java_package = "com.ss.android.lark.pb";
+
+// 客户端发送DING接口
+message PutDingRequest {
+    required string message_id = 1; //被DING的消息的id
+    repeated string chatter_ids = 2; //DING消息发给哪些人
+    optional bool notify_by_sms = 3; // True表示需要短信通知
+}
+
+message PutDingResponse {
+    optional string message_id = 1; //被DING的消息的id
+    repeated string chatter_ids = 2; //DING消息发给哪些人
+    optional int64 send_time=3; //DING消息发送时间
+
+}
+
+// 被DING的人确认DING接口
+message PutConfirmDingRequest {
+    required string message_id = 1; //message的id
+}
+
+message PutConfirmDingResponse {
+    optional string message_id = 1;
+}
+
+// 拉取我收到的未确认的DING接口
+message PullReceivedUnconfirmedDingRequest {
+
+}
+
+message PullReceivedUnconfirmedDingResponse {
+    message Ding {
+        required string message_id = 1;
+        optional int64 send_time=2; // DING消息发送时间
+    }
+    repeated Ding dings = 1;
+}
+
+// 获取DING已确认/未确认chatter信息接口  只能获得单个消息，多个消息使用PullDingsConfirmStatus接口
+message PullDingConfirmStatusRequest {
+    required string message_id = 1; //message的id
+}
+
+message PullDingConfirmStatusResponse {
+    repeated string confirmed_chatter_ids = 1;
+    repeated string unconfirmed_chatter_ids = 2;
+}
+
+// 获取DING已确认/未确认chatter信息接口
+message PullDingsConfirmStatusRequest {
+    repeated string message_ids = 1;
+}
+
+message PullDingsConfirmStatusResponse {
+    message Status {
+        repeated string confirmed_chatter_ids = 1;
+        repeated string unconfirmed_chatter_ids = 2;
+    }
+    map<string, Status> status = 1;
+}
+
+
+// 拉取DING消息与自己的关系: 我发的DING  DING我
+message PullDingStatusRequest {
+    repeated string message_ids = 1;
+}
+
+message PullDingStatusResponse {
+
+    message Status {
+        enum Type {
+            FROM_ME = 1;
+            TO_ME = 2;
+        }
+        optional Type type = 1;
+        // 我发出的DING 需要信息
+        repeated string confirmed_chatter_ids = 2;
+        repeated string unconfirmed_chatter_ids = 3;
+
+        // DING我的 需要信息
+        optional bool is_confirmed = 5;
+    }
+
+    map<string, Status> status = 2;
+}
+
+// 服务器端向客户端推送DING
+message PushDingRequest {
+    required string message_id = 1;
+    optional string chatter_id = 2; //DING发送方id
+    optional int64 send_time=3; // DING消息发送时间
+    optional string chat_id = 4;
+}
+
+// 服务器端向客户端推送DING确认消息
+message PushDingConfirmRequest {
+    optional string message_id = 1;
+    optional string chatter_id = 2; //DING确认方id
+    optional string chat_id = 4;
+}

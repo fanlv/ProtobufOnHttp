@@ -1,0 +1,18 @@
+syntax = "proto2";
+
+option go_package = "git.byted.org/ee/lark/im-protobuf/improto/replies";
+option java_package = "com.ss.android.lark.pb";
+
+service RepliesGreeter {
+    rpc getReplies (PullRepliesReqeust) returns (PullRepliesResponse) {
+    }
+}
+// 获取消息详情页接口
+message PullRepliesReqeust {
+    required string root_id = 1; // 要获取详情页的原始消息ID
+}
+
+message PullRepliesResponse {
+    required string root_id = 1; // 当前详情页原始消息 ID
+    repeated string child_ids = 2; // 当前详情页所有回复 ID
+}

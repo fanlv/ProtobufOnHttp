@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ProtobufTestClient.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>armv7</string>
+				<string>arm64</string>
+			</array>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>FEF52A9E8E65BD434F3BA51E41C69A63E721E7A2</string>
+				<key>dateExpires</key>
+				<string>2019/4/24</string>
+				<key>type</key>
+				<string>iOS Distribution</string>
+			</dict>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>52C4UYZ32Z.tv.douyu.ProtobufTestClient</string>
+				<key>com.apple.developer.team-identifier</key>
+				<string>52C4UYZ32Z</string>
+				<key>get-task-allow</key>
+				<false/>
+				<key>keychain-access-groups</key>
+				<array>
+					<string>52C4UYZ32Z.tv.douyu.ProtobufTestClient</string>
+				</array>
+			</dict>
+			<key>name</key>
+			<string>ProtobufTestClient.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>7864331d-da12-47cb-b977-1284de4b2634</string>
+				<key>name</key>
+				<string>ALL_Distribution</string>
+			</dict>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>52C4UYZ32Z</string>
+				<key>name</key>
+				<string></string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -1,0 +1,37 @@
+syntax = "proto2";
+option java_package = "com.bytedance.lark.pb";
+
+import "entities.proto";
+
+message DepartmentStructure {
+    optional Department department                    = 1;
+    optional Chatter leader                           = 2;
+    repeated Department sub_departments               = 3;
+    repeated Chatter chatters                         = 4;
+    optional bool has_more                            = 5 [default = false];
+}
+
+// GetFullDepartmentStructure: sync + async
+
+message GetFullDepartmentStructureRequest {
+    optional int32 chatter_count                      = 1 [default = 20];
+    // 如果 show_detail 为 false, 则只返回 department 和 sub_departments 字段
+    // 如果 show_detail 为 true, 则返回所有字段
+    optional bool show_detail                         = 2 [default = false];
+}
+
+message GetFullDepartmentStructureResponse {
+    repeated DepartmentStructure department_structure = 1;
+}
+
+// GetDepartmentStructureRequest: sync + async
+
+message GetDepartmentStructureRequest {
+    required string department_id                     = 1;
+    optional int32 chatter_count                      = 2 [default = 20];
+    optional int32 chatter_offset                     = 3 [default = 0];
+}
+
+message GetDepartmentStructureResponse {
+    optional DepartmentStructure department_structure = 1;
+}

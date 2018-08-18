@@ -1,0 +1,109 @@
+syntax = "proto2";
+option java_package = "com.bytedance.lark.pb";
+
+enum Command {
+    // 范式读取
+    MGET_MESSAGES                   = 1;
+    MGET_CHATS                      = 2;
+    MGET_CHATTERS                   = 3;
+
+    // SYNC
+    CREATE_QUASI_MESSAGE            = 1001;
+    GET_CHAT_QUASI_MESSAGES         = 1002;
+
+    CREATE_REACTION                 = 1011;
+    DELETE_REACTION                 = 1012;
+
+    UPDATE_MESSAGES_ME_READ         = 1021;
+
+    MULTI_SEARCH                    = 1022;
+    SEARCH_MESSAGE                  = 1023;
+    SEARCH_GROUP_CHAT               = 1024;
+    SEARCH_CHATTER                  = 1025;
+    SET_DEVICE_ID                   = 1026;
+    LOGOUT                          = 1027;
+    UPLOAD_FILES                    = 1028;
+    GET_SEARCH_HISTORIES            = 1029;
+    DELETE_SEARCH_HISTORY           = 1030;
+    ADD_SEARCH_HISTORY              = 1031;
+    CLEAR_SEARCH_HISTORIES          = 1032;
+    DOWNLOAD_FILE                   = 1033;
+    SET_CLIENT_STATUS               = 1034;
+    LOG                             = 1035;
+    GET_FILE_INFO                   = 1036;
+    GET_CHAT_IMAGES                 = 1037;
+    GET_CLIENT_STATUS               = 1038;
+
+    GET_RECENT_CHATS                = 2001;
+    GET_CHAT_MESSAGE_IDS            = 2002;
+    SEND_MESSAGE                    = 2003;
+    GET_ALL_DRAFTS                  = 2004;
+    CREATE_DRAFT                    = 2005;
+    GET_CHAT_CHATTERS               = 2006;
+    DELETE_MESSAGE                  = 2007;
+    CREATE_CHAT                     = 2008;
+    GET_DEVICE_ID                   = 2009;
+    SET_ACCESS_TOKEN                = 2010;
+    DELETE_DRAFT                    = 2011;
+    GET_CONTACTS                    = 2012;
+    ADD_CHAT_CHATTERS               = 2013;
+    DELETE_CHAT_CHATTERS            = 2014;
+    UPDATE_CHAT                     = 2015;
+    GET_REPLIES                     = 2016;
+    UPLOAD_IMAGE                    = 2017;
+    GET_MESSAGES_BY_POSITIONS       = 2018;
+    RESEND_MESSAGE                  = 2019;
+    GET_MESSAGES_READ_STATE         = 2020;
+    GET_UNREAD_AT_MESSAGES          = 2021;
+    CREATE_P2P_CHATS                = 2022;
+    TRANSMIT_MESSAGE                = 2023;
+    SEARCH                          = 2024;
+    SEARCH_FEEDBACK                 = 2025;
+    GET_SEARCH_HISTORY_ENTITY       = 2026;
+    // 2027 可复用
+    GET_URGENT_PHONE_NUMBERS        = 2028;
+    DELETE_SEARCH_HISTORY_ENTITY    = 2029;
+    GET_WANTED_AT_CHATTERS          = 2030;
+    GET_CHATTER_PROFILE             = 2031;
+    GET_CHATTER_MOBILE              = 2032;
+    UPDATE_CHATTER                  = 2033;
+    ZIP_DIR                         = 2034;
+    GET_FULL_DEPARTMENT_STRUCTURE   = 2035;
+    GET_DEPARTMENT_STRUCTURE        = 2036;
+    GET_MY_GROUP_CHATS              = 2037;
+    GET_BOTS                        = 2038;
+    GET_CHATTER_DESCRIPTIONS        = 2039;
+    CREATE_URGENT                   = 2040;
+    ACK_URGENT                      = 2041;
+    GET_UNACK_URGENTS               = 2042;
+    GET_URGENTS_ACK_STATUS          = 2043;
+    COPY_MESSAGES                   = 2044;
+    GET_FEED_CARDS                  = 2045;
+    UPDATE_FEED_CARDS               = 2046;
+    GET_EMAIL_MEMBERS               = 2047;
+    UPDATE_EMAIL_MEMBERS            = 2048;
+    CREATE_EMAIL                    = 2049;
+
+    // Push
+    PUSH_MESSAGES                   = 5000;
+    PUSH_CHAT_CHATTERS              = 5001;
+    PUSH_FEED_CARDS                 = 5002;
+    PUSH_CHATS                      = 5003;
+    PUSH_NOTICE                     = 5004;
+    PUSH_WEB_SOCKET_STATUS          = 5005;
+    PUSH_UPLOAD_FILE                = 5006;
+    PUSH_UPLOAD_IMAGE               = 5007;
+    PUSH_UPLOAD_AUDIO               = 5008;
+    PUSH_EMAIL_MEMBERS              = 5009;
+    PUSH_CHATTERS                   = 5010;
+    PUSH_DOWNLOAD_FILE              = 5011;
+    PUSH_RECONNECTION               = 5012;
+    PUSH_URGENT                     = 5013;
+
+    // 用作暂时没有实现 PUSH 命令的保留位
+    UNIMPLEMENT_COMMANDS            = 6999;
+
+    // 其他指令
+    SYNC_PACKETS                    = 9001;
+    RESET_ACCESS_TOKEN              = 9002;
+}

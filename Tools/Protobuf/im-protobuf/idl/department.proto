@@ -1,0 +1,38 @@
+syntax = "proto2";
+
+option java_package="com.ss.android.lark.pb";
+
+import "entities.proto";
+
+service DepartmentGreeter {
+}
+
+
+message DepartmentStructure {
+    optional Chatter leader = 1;
+    optional Department department = 2;
+    repeated Chatter users = 3;
+    optional bool has_more = 4;
+    repeated Department sub_departments = 5;
+}
+
+message PullDepartmentStructureRequest{
+    optional string department_id = 1;
+    optional int32 chatter_count = 2 [default = 20];
+    optional int32 chatter_offset = 3 [default = 0];
+}
+
+message PullDepartmentStructureResponse{
+    optional DepartmentStructure department_structure = 1;
+}
+
+
+message PullFullDepartmentStructureRequest {
+    required bool show_detail = 1;
+    optional int32 chatter_count = 2 [default = 20];
+}
+
+
+message PullFullDepartmentStructureResponse {
+    repeated DepartmentStructure department_structure = 1;
+}

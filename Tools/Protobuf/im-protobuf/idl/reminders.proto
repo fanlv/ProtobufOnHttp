@@ -1,0 +1,120 @@
+syntax = "proto2";
+
+option go_package="git.byted.org/ee/lark/im-protobuf/improto/posts";
+option java_package="com.ss.android.lark.pb";
+
+import "entities.proto";
+
+// reminder service
+service ReminderGreeter {
+    rpc create (PutMessageReminderRequest) returns (PutMessageReminderResponse) {}
+    rpc update (PatchMessageReminderRequest) returns (PatchMessageReminderResponse) {}
+    rpc delete (DeleteMessageReminderRequest) returns (DeleteMessageReminderResponse) {}
+    rpc confirm (PatchMessageReminderConfirmRequest) returns (PatchMessageReminderConfirmResponse) {}
+    rpc fetch (PullMessageRemindersRequest) returns (PullMessageRemindersResponse) {}
+}
+
+message PutMessageReminderRequest {
+    required string message_id = 1;
+    required int64 reminder_time = 2; // 提醒预定的发生时间
+}
+
+message PutMessageReminderResponse {
+    // 可能的值：
+    // MSG_NOT_EXISTS 指定消息不存在
+    // EXISTS 指定的消息已经存在一条未确认提醒
+    // INVALID_TIME 指定的提醒时间不合法
+    // SUCCESS 创建成功
+    required string result_status = 1;
+    optional MessageReminder reminder = 2;
+}
+
+message PatchMessageReminderRequest {
+    required string reminder_id = 1;
+    required int64 reminder_time = 2; // 提醒预定的发生时间
+}
+
+message PatchMessageReminderResponse {
+    // 可能的值:
+    // NOT_FOUND 没有找到指定提醒
+    // EXPIRED 提醒已经过期了不能修改
+    // INVALID_TIME 指定的提醒时间不合法
+    // SUCCESS 修改成功
+    // FORBIDDEN 修改不属于自己的提醒
+    required string result_status = 1;
+    optional MessageReminder reminder = 2;
+}
+
+message DeleteMessageReminderRequest {
+    required string reminder_id = 1;
+}
+
+message DeleteMessageReminderResponse {
+    // 可能的值：
+    // NOT_FOUND 没有找到指定提醒
+    // EXPIRED 提醒已经过期了不能修改
+    // SUCCESS 修改成功
+    // FORBIDDEN 删除不属于自己的提醒
+    required string result_status = 1;
+}
+
+message PatchMessageReminderConfirmRequest {
+    required string reminder_id = 1;
+}
+
+message PatchMessageReminderConfirmResponse {
+    // 可能的值:
+    // NOT_FOUND 没有找到指定提醒
+    // ALREADY_CONFIRMED 已经确认过的不能再重复确认
+    // INVALID_TIME 提醒消息还未到时不能提醒
+    // SUCCESS 成功确认
+    // FORBIDDEN 确认不属于自己的提醒
+    required string result_status = 1;
+    optional MessageReminder reminder = 2;
+}
+
+message DeleteMessageReminderAlertRequest {
+   required string reminder_id = 1;
+   required string device_id = 2; // 待取消远程推送的 device_id
+}
+
+message DeleteMessageReminderAlertResponse {
+   // 可能的值：
+   // NOT_FOUND 没有找到指定提醒
+   // EXPIRED 提醒已经过期了不能删除
+   // SUCCESS 删除成功
+   // FORBIDDEN 删除不属于自己的提醒
+   required string result_status = 1;
+}
+
+message PushMessageReminder {
+    required MessageReminder reminder = 1;
+    // 可能的值：
+    // PUT PATCH DELETE CONFIRM
+    required string push_type = 2;
+    optional string reminder_id = 3; // 当修改的时候带回已作废删除的旧提醒
+}
+
+message PushMessageReminderAlert {
+    // 服务端推送远程消息提醒
+    required MessageReminder reminder = 1;
+    required Message message = 2;
+}
+
+message PullMessageRemindersRequest {
+    // 如果 update_time 不为 0，那么使用 update_time 从小向大拉取 reminder
+    // 没有 update_time 时采用 reminder_time 来拉取，如果 reminder_time 小于 0，按 reminder_time 倒序进行拉取
+    // 否则倒序拉取小于 req.reminder_time 的 MessageReminder
+    optional int64 update_time = 1;
+    optional int64 reminder_time = 2;
+    optional int32 limit = 3 [default = 10]; // 每页提醒数
+    optional string chat_id = 4 [default = ""]; // 若指定此参数，则拉取指定会话中的提醒
+}
+
+message PullMessageRemindersResponse {
+    // 结果中永远是最新的，id 最大的在前
+    required bool has_more = 1 [default = false];
+    repeated MessageReminder reminders = 2;
+    // 提醒总数，除了取消的
+    required int32 completed_count = 3 [default = 0];
+}

@@ -1,0 +1,16 @@
+syntax = "proto2";
+option java_package = "com.bytedance.lark.pb";
+
+import "entities.proto";
+
+// GetContacts: async + sync
+
+message GetContactsRequest {
+    optional int64 update_time                    = 1 [default=0];
+    optional int32 count                          = 2 [default=100];
+}
+
+message GetContactsResponse {
+   optional bool has_more                         = 1;
+   required Entity entity                         = 2;
+}

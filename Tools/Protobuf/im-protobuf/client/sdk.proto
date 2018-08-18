@@ -1,0 +1,150 @@
+syntax = "proto2";
+option java_package = "com.bytedance.lark.pb";
+
+// InitSdk: sync
+
+message InitSDKRequest {
+    enum EnvType {
+        ONLINE = 1;
+        TEST = 2;
+    }
+    required string storage_path                = 1;
+    optional EnvType env                        = 2;
+    required string version                     = 3;
+    required string user_agent                  = 4;
+}
+
+// SetDeviceId: sync (android)
+
+message SetDeviceIdRequest {
+    required string device_id                   = 1;
+}
+
+// GetDeivceId: async
+
+message GetDeviceIdRequest {
+    // for pc
+    optional string mac                         = 1;
+    optional string openudid                    = 2;
+
+    // for iOS
+    optional string vendor_id                   = 3;
+    optional string app_version                 = 4;
+    optional string os_version                  = 5;
+    optional string channel                     = 6;
+}
+
+message GetDeviceIdResponse {
+    required string device_id                   = 1;
+    required bool is_new                        = 2;
+}
+
+// SetAccessToken: async
+
+message SetAccessTokenRequest {
+    required string access_token                = 1;
+    optional string user_id                     = 2 [default = ""];
+
+    // 如果该字段为 true，则 sdk 会向服务端验证 token 是否有效；
+    // 否则，需要同时传入 token 和 user_id，并且 sdk 不会向服务端验证；
+    optional bool should_check                  = 3 [default = true];
+}
+
+message SetAccessTokenResponse {
+    required bool is_valid                      = 1;
+    message User {
+        required string user_id                 = 1;
+        optional string name                    = 2 [default = ""];
+        optional string avatar_url              = 3 [default = ""];
+        optional int32 status                   = 4 [default = 0];
+    }
+    optional User user                          = 2;
+}
+
+// GetWebSocketStatus: push
+
+message GetWebSocketStatusResponse {
+    enum Status {
+        OPENING = 1;
+        SUCCESS = 2;
+        CLOSE = 3;
+    }
+    required Status status                      = 1;
+}
+
+// GetSearchHistories: sync
+
+message GetSearchHistoriesResponse {
+    repeated string histories                   = 1;
+}
+
+// DeleteSearchHistory: sync
+
+message DeleteSearchHistoryRequest {
+    required string history                     = 1;
+}
+
+// AddSearchHistory: sync
+
+message AddSearchHistoryRequest {
+    required string history                     = 1;
+}
+
+// Reconnection: push
+
+message ReconnectionResponse {
+}
+
+// SetClientStatus: sync
+
+message SetClientStatusRequest {
+    enum NetType {
+        OFFLINE                                 = 1;
+        ONLINE_2G                               = 2;
+        ONLINE_3G                               = 3;
+        ONLINE_4G                               = 4;
+        ONLINE_WIFI                             = 5;
+        ONLINE_WIRED                            = 6;
+    }
+    optional NetType net_type                   = 1;
+    optional string settings                    = 2 [default = '']; // 客户端配置
+}
+
+// GetClientStatus: sync
+
+message GetClientStatusResponse {
+    optional string settings                    = 1 [default = ''];
+}
+
+// Log: async
+
+message LogRequest {
+    enum LevelType {
+        DEBUG                                   = 1;
+        INFO                                    = 2;
+        WARN                                    = 3;
+        ERROR                                   = 4;
+    }
+    enum FromType {
+        MAC                                     = 1;
+        WIN                                     = 2;
+        IOS                                     = 3;
+        ANDROID                                 = 4;
+    }
+    required LevelType level_type               = 1;
+    required FromType from_type                 = 2;
+    required string message                     = 3;
+}
+
+message LogResponse {
+}
+
+// ZipDir: sync
+
+message ZipDirRequest {
+    required string src_dir                     = 1;
+    required string dst_dir                     = 2;
+}
+
+message ZipDirResponse {
+}

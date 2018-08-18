@@ -1,0 +1,22 @@
+syntax = "proto2";
+
+option java_package="com.ss.android.lark.pb";
+
+
+import "entities.proto";
+
+// bot service
+service BotGreeter {
+    rpc get (PullBotsRequest) returns (PullBotsResponse) {}
+}
+
+// bot mget
+message PullBotsRequest {
+   optional int32 offset = 1 [default = 0];
+   optional int32 count = 2 [default = 20];
+}
+
+message PullBotsResponse {
+    optional bool has_more = 1;
+    repeated Chatter bots = 2;
+}

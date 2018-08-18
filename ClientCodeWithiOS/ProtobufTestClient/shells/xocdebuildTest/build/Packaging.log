@@ -1,0 +1,111 @@
+2018-04-25 12:40:09 +0000 [MT] Initial pipeline context: <IDEDistributionProcessingPipelineContext: 0x7fd2aa03abe0; archive(resolved)='<IDEArchive: 0x7fd2a9a390c0>', distributionTask(resolved)='2', distributionMethod(resolved)='<IDEDistributionMethodAdHoc: 0x7fd2a740e970>', team(resolved)='<IDEProvisioningBasicTeam: 0x7fd2aa03a5c0; teamID='52C4UYZ32Z', teamName='(null)'>'>
+	Chain (11, self inclusive):
+	<IDEDistributionProcessingPipelineContext: 0x7fd2aa03abe0; archive = '<IDEArchive: 0x7fd2a9a390c0>', distributionMethod='<IDEDistributionMethodAdHoc: 0x7fd2a740e970>', team='<IDEProvisioningBasicTeam: 0x7fd2aa03a5c0; teamID='52C4UYZ32Z', teamName='(null)'>'>
+	<IDEDistributionProcessingPipelineContext: 0x7fd2aa138770; archive = '<IDEArchive: 0x7fd2a9a390c0>', distributionMethod='<IDEDistributionMethodAdHoc: 0x7fd2a740e970>', team='<IDEProvisioningBasicTeam: 0x7fd2aa03a5c0; teamID='52C4UYZ32Z', teamName='(null)'>'>
+	<IDEDistributionContext: 0x7fd2aa137e40; archive = '<IDEArchive: 0x7fd2a9a390c0>', distributionMethod='<IDEDistributionMethodAdHoc: 0x7fd2a740e970>', team='<IDEProvisioningBasicTeam: 0x7fd2aa03a5c0; teamID='52C4UYZ32Z', teamName='(null)'>'>
+	<IDEDistributionContext: 0x7fd2aa130c00; archive = '<IDEArchive: 0x7fd2a9a390c0>', distributionMethod='<IDEDistributionMethodAdHoc: 0x7fd2a740e970>', team='<IDEProvisioningBasicTeam: 0x7fd2aa03a5c0; teamID='52C4UYZ32Z', teamName='(null)'>'>
+	<IDEDistributionContext: 0x7fd2a9dd0bf0; archive = '<IDEArchive: 0x7fd2a9a390c0>', distributionMethod='<IDEDistributionMethodAdHoc: 0x7fd2a740e970>', team='<IDEProvisioningBasicTeam: 0x7fd2aa03a5c0; teamID='52C4UYZ32Z', teamName='(null)'>'>
+	<IDEDistributionContext: 0x7fd2a9df8ff0; archive = '<IDEArchive: 0x7fd2a9a390c0>', distributionMethod='<IDEDistributionMethodAdHoc: 0x7fd2a740e970>', team='<IDEProvisioningBasicTeam: 0x7fd2aa03a5c0; teamID='52C4UYZ32Z', teamName='(null)'>'>
+	<IDEDistributionContext: 0x7fd2aa12cb80; archive = '<IDEArchive: 0x7fd2a9a390c0>', distributionMethod='<IDEDistributionMethodAdHoc: 0x7fd2a740e970>', team='<IDEProvisioningBasicTeam: 0x7fd2aa03a5c0; teamID='52C4UYZ32Z', teamName='(null)'>'>
+	<IDEDistributionContext: 0x7fd2aa12d600; archive = '<IDEArchive: 0x7fd2a9a390c0>', distributionMethod='<IDEDistributionMethodAdHoc: 0x7fd2a740e970>', team='<IDEProvisioningBasicTeam: 0x7fd2aa03a5c0; teamID='52C4UYZ32Z', teamName='(null)'>'>
+	<IDEDistributionContext: 0x7fd2a9cc03b0; archive = '<IDEArchive: 0x7fd2a9a390c0>', distributionMethod='<IDEDistributionMethodAdHoc: 0x7fd2a740e970>', team='<IDEProvisioningBasicTeam: 0x7fd2aa03a5c0; teamID='52C4UYZ32Z', teamName='(null)'>'>
+	<IDEDistributionContext: 0x7fd2a9e06dc0; archive = '<IDEArchive: 0x7fd2a9a390c0>', distributionMethod='<IDEDistributionMethodAdHoc: 0x7fd2a740e970>', team='(null)'>
+	<IDEDistributionContext: 0x7fd2a9dd9050; archive = '<IDEArchive: 0x7fd2a9a390c0>', distributionMethod='(null)', team='(null)'>
+</IDEDistributionProcessingPipelineContext: 0x7fd2aa03abe0>
+2018-04-25 12:40:09 +0000 [MT] Processing step: IDEDistributionCreateDestRootStep
+2018-04-25 12:40:09 +0000 [MT] Processing step: IDEDistributionCopyItemStep
+2018-04-25 12:40:09 +0000 [MT] Running /usr/bin/ditto '-V' '/Users/fanlv/Documents/MaYun/iOSTest/ProtobufOnHttpTest/ProtobufTestClient/shells/xocdebuildTest/build/ProtobufTestClient.xcarchive/Products/Applications/ProtobufTestClient.app' '/var/folders/v1/rff94l_s2z9bhxhsm9smh6m40000gn/T/XcodeDistPipeline.cqN/Root/Payload/ProtobufTestClient.app'
+2018-04-25 12:40:09 +0000  >>> Copying /Users/fanlv/Documents/MaYun/iOSTest/ProtobufOnHttpTest/ProtobufTestClient/shells/xocdebuildTest/build/ProtobufTestClient.xcarchive/Products/Applications/ProtobufTestClient.app 
+2018-04-25 12:40:09 +0000  copying file ./_CodeSignature/CodeResources ... 
+2018-04-25 12:40:09 +0000  4803 bytes for ./_CodeSignature/CodeResources
+2018-04-25 12:40:09 +0000  copying file ./Base.lproj/Main.storyboardc/UIViewController-BYZ-38-t0r.nib ... 
+2018-04-25 12:40:09 +0000  916 bytes for ./Base.lproj/Main.storyboardc/UIViewController-BYZ-38-t0r.nib
+2018-04-25 12:40:09 +0000  copying file ./Base.lproj/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib ... 
+2018-04-25 12:40:09 +0000  1985 bytes for ./Base.lproj/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib
+2018-04-25 12:40:09 +0000  copying file ./Base.lproj/Main.storyboardc/Info.plist ... 
+2018-04-25 12:40:09 +0000  258 bytes for ./Base.lproj/Main.storyboardc/Info.plist
+2018-04-25 12:40:09 +0000  copying file ./Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib ... 
+2018-04-25 12:40:09 +0000  1987 bytes for ./Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib
+copying file ./Base.lproj/LaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib ... 
+2018-04-25 12:40:09 +0000  832 bytes for ./Base.lproj/LaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib
+copying file ./Base.lproj/LaunchScreen.storyboardc/Info.plist ... 
+2018-04-25 12:40:09 +0000  258 bytes for ./Base.lproj/LaunchScreen.storyboardc/Info.plist
+2018-04-25 12:40:09 +0000  copying file ./embedded.mobileprovision ... 
+2018-04-25 12:40:09 +0000  16767 bytes for ./embedded.mobileprovision
+copying file ./Info.plist ... 
+2018-04-25 12:40:09 +0000  1130 bytes for ./Info.plist
+2018-04-25 12:40:09 +0000  copying file ./ProtobufTestClient ... 
+2018-04-25 12:40:10 +0000  9100912 bytes for ./ProtobufTestClient
+2018-04-25 12:40:10 +0000  2018-04-25 12:40:10 +0000 [MT] /usr/bin/ditto exited with 0
+2018-04-25 12:40:10 +0000  copying file ./PkgInfo ... 
+8 bytes for ./PkgInfo
+
+2018-04-25 12:40:10 +0000  2018-04-25 12:40:10 +0000  
+
+2018-04-25 12:40:10 +0000 [MT] Processing step: IDEDistributionEmbedProfileStep
+2018-04-25 12:40:10 +0000 [MT] Processing step: IDEDistributionAppThinningPlistStep
+2018-04-25 12:40:10 +0000 [MT] Skipping step: IDEDistributionAppThinningPlistStep because it said so
+2018-04-25 12:40:10 +0000 [MT] Processing step: IDEDistributionCompileBitcodeStep
+2018-04-25 12:40:10 +0000 [MT] Skipping step: IDEDistributionCompileBitcodeStep because it said so
+2018-04-25 12:40:10 +0000 [MT] Processing step: IDEDistributionCodeSlimmingStep
+2018-04-25 12:40:10 +0000 [MT] Processing step: IDEDistributionCopyBCSymbolMapsStep
+2018-04-25 12:40:10 +0000 [MT] Skipping step: IDEDistributionCopyBCSymbolMapsStep because it said so
+2018-04-25 12:40:10 +0000 [MT] Processing step: IDEDistributionSymbolsStep
+2018-04-25 12:40:10 +0000 [MT] Skipping step: IDEDistributionSymbolsStep because it said so
+2018-04-25 12:40:10 +0000 [MT] Processing step: IDEDistributionAppThinningStep
+2018-04-25 12:40:10 +0000 [MT] Skipping step: IDEDistributionAppThinningStep because it said so
+2018-04-25 12:40:10 +0000 [MT] Processing step: IDEDistributionODRStep
+2018-04-25 12:40:10 +0000 [MT] Processing step: IDEDistributionStripXattrsStep
+2018-04-25 12:40:10 +0000 [MT] Running /usr/bin/xattr '-crs' '/var/folders/v1/rff94l_s2z9bhxhsm9smh6m40000gn/T/XcodeDistPipeline.cqN/Root/Payload/ProtobufTestClient.app'
+2018-04-25 12:40:10 +0000  2018-04-25 12:40:10 +0000  
+
+2018-04-25 12:40:10 +0000 [MT] /usr/bin/xattr exited with 02018-04-25 12:40:10 +0000  
+
+2018-04-25 12:40:10 +0000  
+2018-04-25 12:40:10 +0000 [MT] Processing step: IDEDistributionCodesignStep
+2018-04-25 12:40:10 +0000 [MT] Entitlements for <IDEDistributionItem: 0x7fd2aa1218a0 'tv.douyu.ProtobufTestClient' '<DVTFilePath:0x7fd2a9dd8cc0:'/Users/fanlv/Documents/MaYun/iOSTest/ProtobufOnHttpTest/ProtobufTestClient/shells/xocdebuildTest/build/ProtobufTestClient.xcarchive/Products/Applications/ProtobufTestClient.app'>'>: {
+    "application-identifier" = "52C4UYZ32Z.tv.douyu.ProtobufTestClient";
+    "com.apple.developer.team-identifier" = 52C4UYZ32Z;
+    "get-task-allow" = 0;
+    "keychain-access-groups" =     (
+        "52C4UYZ32Z.tv.douyu.ProtobufTestClient"
+    );
+}
+2018-04-25 12:40:10 +0000 [MT] Writing entitlements for <IDEDistributionItem: 0x7fd2aa1218a0 'tv.douyu.ProtobufTestClient' '<DVTFilePath:0x7fd2a9dd8cc0:'/Users/fanlv/Documents/MaYun/iOSTest/ProtobufOnHttpTest/ProtobufTestClient/shells/xocdebuildTest/build/ProtobufTestClient.xcarchive/Products/Applications/ProtobufTestClient.app'>'> to: /var/folders/v1/rff94l_s2z9bhxhsm9smh6m40000gn/T/XcodeDistPipeline.cqN/entitlementslm7TOQ
+2018-04-25 12:40:10 +0000 [MT] Running /usr/bin/codesign '-vvv' '--force' '--sign' 'FEF52A9E8E65BD434F3BA51E41C69A63E721E7A2' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/v1/rff94l_s2z9bhxhsm9smh6m40000gn/T/XcodeDistPipeline.cqN/entitlementslm7TOQ' '/var/folders/v1/rff94l_s2z9bhxhsm9smh6m40000gn/T/XcodeDistPipeline.cqN/Root/Payload/ProtobufTestClient.app'
+2018-04-25 12:40:10 +0000  /var/folders/v1/rff94l_s2z9bhxhsm9smh6m40000gn/T/XcodeDistPipeline.cqN/Root/Payload/ProtobufTestClient.app: signed app bundle with Mach-O universal (armv7 arm64) [tv.douyu.ProtobufTestClient]
+2018-04-25 12:40:10 +0000  
+2018-04-25 12:40:10 +0000  2018-04-25 12:40:10 +0000 [MT] /usr/bin/codesign exited with 0
+
+2018-04-25 12:40:10 +0000  
+2018-04-25 12:40:10 +0000  
+2018-04-25 12:40:10 +0000 [MT] Processing step: IDEDistributionStreamingZipItemStep
+2018-04-25 12:40:10 +0000 [MT] Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2018-04-25 12:40:10 +0000 [MT] Processing step: IDEDistributionCreateIPAStep
+2018-04-25 12:40:10 +0000 [MT] Running /usr/bin/ditto '-V' '-c' '-k' '--norsrc' '/var/folders/v1/rff94l_s2z9bhxhsm9smh6m40000gn/T/XcodeDistPipeline.cqN/Root' '/var/folders/v1/rff94l_s2z9bhxhsm9smh6m40000gn/T/XcodeDistPipeline.cqN/Packages/ProtobufTestClient.ipa'
+2018-04-25 12:40:10 +0000  >>> Copying /var/folders/v1/rff94l_s2z9bhxhsm9smh6m40000gn/T/XcodeDistPipeline.cqN/Root 
+2018-04-25 12:40:10 +0000  copying file ./Payload/ProtobufTestClient.app/_CodeSignature/CodeResources ... 
+2018-04-25 12:40:10 +0000  4803 bytes for ./Payload/ProtobufTestClient.app/_CodeSignature/CodeResources
+2018-04-25 12:40:10 +0000  copying file ./Payload/ProtobufTestClient.app/Base.lproj/Main.storyboardc/UIViewController-BYZ-38-t0r.nib ... 
+916 bytes for ./Payload/ProtobufTestClient.app/Base.lproj/Main.storyboardc/UIViewController-BYZ-38-t0r.nib
+copying file ./Payload/ProtobufTestClient.app/Base.lproj/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib ... 
+2018-04-25 12:40:10 +0000  1985 bytes for ./Payload/ProtobufTestClient.app/Base.lproj/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib
+copying file ./Payload/ProtobufTestClient.app/Base.lproj/Main.storyboardc/Info.plist ... 
+258 bytes for ./Payload/ProtobufTestClient.app/Base.lproj/Main.storyboardc/Info.plist
+2018-04-25 12:40:10 +0000  copying file ./Payload/ProtobufTestClient.app/Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib ... 
+1987 bytes for ./Payload/ProtobufTestClient.app/Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib
+copying file ./Payload/ProtobufTestClient.app/Base.lproj/LaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib ... 
+2018-04-25 12:40:10 +0000  832 bytes for ./Payload/ProtobufTestClient.app/Base.lproj/LaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib
+copying file ./Payload/ProtobufTestClient.app/Base.lproj/LaunchScreen.storyboardc/Info.plist ... 
+258 bytes for ./Payload/ProtobufTestClient.app/Base.lproj/LaunchScreen.storyboardc/Info.plist
+copying file ./Payload/ProtobufTestClient.app/embedded.mobileprovision ... 
+2018-04-25 12:40:10 +0000  8940 bytes for ./Payload/ProtobufTestClient.app/embedded.mobileprovision
+copying file ./Payload/ProtobufTestClient.app/Info.plist ... 
+2018-04-25 12:40:10 +0000  1130 bytes for ./Payload/ProtobufTestClient.app/Info.plist
+copying file ./Payload/ProtobufTestClient.app/ProtobufTestClient ... 
+2018-04-25 12:40:10 +0000  1978352 bytes for ./Payload/ProtobufTestClient.app/ProtobufTestClient
+copying file ./Payload/ProtobufTestClient.app/PkgInfo ... 
+2018-04-25 12:40:10 +0000  2018-04-25 12:40:10 +0000 [MT] /usr/bin/ditto exited with 0
+
+2018-04-25 12:40:10 +0000  8 bytes for ./Payload/ProtobufTestClient.app/PkgInfo
+2018-04-25 12:40:10 +0000 [MT] Processing step: IDEDistributionCreateManifestStep

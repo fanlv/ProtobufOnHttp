@@ -1,0 +1,16 @@
+syntax = "proto2";
+option java_package = "com.bytedance.lark.pb";
+
+// CreateReaction: sync
+
+message CreateReactionRequest {
+    required string message_id                  = 1;
+    required string type                        = 2;
+}
+
+// DeleteReaction: sync
+
+message DeleteReactionRequest {
+    required string message_id                  = 1;
+    required string type                        = 2;
+}

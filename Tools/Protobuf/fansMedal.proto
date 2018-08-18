@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+message RoomInfo {  
+ string room_id = 1;
+ uint64 start_time = 2;
+ uint64 end_time = 3;
+ string md5 = 4;
+ string zipUrl = 5;
+ repeated string s_id = 6;
+
+} 
+
+message FansMedal {
+ repeated RoomInfo rooms = 1;
+}
+
+

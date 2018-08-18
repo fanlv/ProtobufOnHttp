@@ -1,0 +1,10 @@
+syntax = "proto2";
+option java_package = "com.bytedance.lark.pb";
+
+import "entities.proto";
+
+// UploadAudio: push
+
+message UploadAudioResponse {
+    required string local_key                    = 1; // 如果 local_key 存在，它即是消息的 cid，也是本地构造的 audio_key
+}

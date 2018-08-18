@@ -1,0 +1,11 @@
+syntax = "proto2";
+
+option go_package="git.byted.org/ee/lark/im-protobuf/improto/relationships";
+option java_package="com.ss.android.lark.pb";
+
+message ChatUserRef {
+  message UserIds {
+    repeated string user_ids = 1;
+  }
+  map<string, UserIds> chat2user_ids = 1;
+}

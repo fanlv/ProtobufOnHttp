@@ -1,0 +1,369 @@
+syntax = "proto2";
+
+option go_package="git.byted.org/ee/lark/im-protobuf/improto/chats";
+option java_package="com.ss.android.lark.pb";
+
+import "entities.proto";
+
+// chat service
+service ChatGreeter {
+    rpc get (PullChatsRequest) returns (PullChatsResponse) {}
+    rpc getRecent (PullRecentChatsRequest) returns (PullRecentChatsResponse) {}
+    rpc getUsers (PullChatChattersRequest) returns (PullChatChattersResponse) {}
+    rpc create (PutChatRequest) returns (PutChatResponse) {}
+    rpc createP2PChats (PutP2PChatsRequest) returns (PutP2PChatsResponse) {}
+    rpc addUsers (PutChatChatterRequest) returns (PutChatChatterResponse) {}
+    rpc deleteUsers (DeleteChatChatterRequest) returns (DeleteChatChatterResponse) {}
+    rpc modifyChatName (PutChatNameRequest) returns (PutChatNameResponse) {}
+    rpc setChatSetting (PatchChatSettingRequest) returns (PatchChatSettingResponse) {}
+    rpc getChatSettings (PullChatSettingsRequest) returns (PullChatSettingsResponse) {}
+    rpc getAllChatSettings (PullAllChatSettingsRequest) returns (PullAllChatSettingsResponse) {}
+    rpc getChatsByIds (PullChatsByIdsRequest) returns (PullChatsByIdsResponse) {}
+}
+
+// 拉取最近的会话列表
+message PullChatsRequest {
+  enum Type {
+    ALL = 1;
+    P2P = 2;
+    GROUP = 3;
+  }
+  optional int64 update_time = 1 [default = 0];
+  optional int32 count = 2 [default = 20];
+  optional Type type = 3 [default = ALL];
+}
+
+message PullChatsResponse {
+  map<string, Chat> chats = 1;
+  map<string, Message> messages = 2;
+  map<string, int32> message_positions = 3;
+  repeated string ordered_chat_ids = 4;
+  optional bool has_more = 5 [default = false];
+}
+
+// 获取当前用户最近的会话
+message PullRecentChatsRequest {
+  // 用于请求比此时间戳更新的会话，如果返回的数据量＝count，则说明 has more
+  // 此时客户端应该舍弃之前旧的 chat，重新按新的数据最后一条开始翻页获取会话
+  optional int64 new_update_time = 1 [default = 0];
+  // 用于请求比此时间戳更旧的会话
+  optional int64 more_update_time = 2 [default = 0];
+  optional int32 count = 3 [default = 20];
+}
+
+message PullRecentChatsResponse {
+  map<string, Chat> chats = 1;
+  map<string, Message> messages = 2;
+  map<string, int32> message_positions = 3;
+  repeated string ordered_chat_ids = 4;
+  optional bool has_more = 5 [default = false];
+}
+
+// 会话 mget
+message PullChatsByIdsRequest {
+    repeated string chat_ids = 1;
+}
+
+message PullChatsByIdsResponse {
+    map<string, Chat> chats = 1;
+}
+
+// 创建新的 Chat
+message PutChatRequest {
+  required Chat.Type type = 1;
+  repeated string user_ids = 2;   // 逐渐废弃
+  optional string group_name = 3 [default = ""];
+  optional string group_desc = 4 [default = ""];
+  optional bool is_public = 5 [default = false];
+  repeated string chatter_ids = 6;
+  optional string organization_id= 7;
+
+  optional string from_chat_id = 8;
+  repeated string init_message_ids = 9;
+}
+
+message PutChatResponse {
+  required Chat chat = 1;
+}
+
+message PutP2PChatsRequest{
+    repeated string chatter_ids = 1;
+}
+
+message PutP2PChatsResponse{
+    map<string, Chat> chats = 1;
+}
+
+// 修改 Chat
+message PatchChatRequest {
+  required string chat_id = 1;
+  optional int32 is_public = 2 [default = -1]; // -1 表示没有修改该字段；0 表示设置为非公共群；1 表示设置为公共群
+}
+
+message PatchChatResponse {
+  required Chat chat = 1;
+}
+
+// 拉取 Chat 的成员
+//[逐渐废弃]加入机器人
+message PullChatUsersRequest {
+  required string chat_id = 1;
+}
+
+message PullChatUsersResponse {
+  map<string, User> users = 1;
+  map<string, Bot> bots = 2;
+  // 群成员的权值，最先进入的成员权值小
+  map<string, int64> ordered_weight = 3;
+}
+
+// 拉取 Chat 的成员
+message PullChatChattersRequest {
+    required string chat_id = 1;
+}
+
+message PullChatChattersResponse {
+    map<string, Chatter> chatters = 1;
+    // 群成员的权值，最先进入的成员权值小
+    map<string, int64> ordered_weight = 2;
+}
+
+// 会话归档
+message PushChatArchiveRequest {
+  required string chat_id = 1;
+}
+
+message PushChatArchiveResponse {
+  required Chat chat = 1;
+}
+
+// 会话增加新的成员
+//[逐渐废弃，机器人加入]
+message PutChatUserRequest {
+  required string chat_id = 1;
+  repeated string user_ids = 2;
+}
+
+message PutChatUserResponse {
+  optional Chat chat = 1;
+}
+
+// 会话增加新的成员
+message PutChatChatterRequest {
+  required string chat_id = 1;
+  repeated string chatter_ids = 2;
+}
+
+message PutChatChatterResponse {
+  optional Chat chat = 1;
+}
+
+// 删除会话的成员
+//[逐渐废弃，机器人加入]
+message DeleteChatUserRequest {
+  required string chat_id = 1;
+  repeated string user_ids = 2;
+}
+
+message DeleteChatUserResponse {
+}
+
+// 删除会话的成员
+message DeleteChatChatterRequest {
+  required string chat_id = 1;
+  repeated string chatter_ids = 2;
+}
+
+message DeleteChatChatterResponse {
+    optional Chat chat = 1;
+}
+
+// 修改会话的名称
+message PutChatNameRequest {
+  required string chat_id = 1;
+  required string name = 2;
+}
+
+message PutChatNameResponse {
+  required Chat chat = 1;
+}
+
+// 修改会话的描述
+// [废弃,由PatchGroupChatRequest替代]
+message PatchChatDescriptionRequest {
+  required string chat_id = 1;
+  required string description = 2;
+}
+
+// [废弃]
+message PatchChatDescriptionResponse {
+  required Chat chat = 1;
+}
+
+// 修改会话的头像
+// [废弃,由PatchGroupChatRequest替代]
+message PatchChatIconRequest {
+  required string chat_id = 1;
+  required string icon_data = 2; // base64 编码过的图片数据
+}
+
+// [废弃]
+message PatchChatIconResponse {
+  required Chat chat = 1;
+}
+
+// 修改群设置
+message PatchGroupChatRequest {
+  enum UpdateFields {
+    NAME = 1;
+    ICON_KEY = 2;
+    DESCRIPTION = 3;
+    ANNOUNCEMENT = 4;
+    OWNER_ID = 5;
+    MEMBER_COUNT = 6;
+    IS_ARCHIVE = 7;
+    IS_PUBLIC = 8;
+    IS_INNER = 9;
+    ORGANIZATION_ID = 10;
+    IS_GROUP_COMPANIES = 11;
+    GROUP_COMPANIES_ID = 12;
+  }
+
+  optional int64 chat_id = 1;
+  optional string name = 2;
+  optional string icon_data = 3;
+  optional string description = 4;
+  optional string announcement = 5;
+  optional int64 owner_id = 6;
+  optional int32 member_count = 7;
+  optional bool is_archive = 8 [default = false];
+  optional bool is_public = 9 [default = false];
+  optional bool is_inner = 10 [default = false];
+  optional int64 organization_id = 11 [default = 0];
+  optional bool is_group_companies = 12 [default = false];
+  optional int64 group_companies_id = 13 [default = 0];
+
+  repeated UpdateFields update_fields = 999;
+}
+
+message PatchGroupChatResponse {
+  required Chat chat = 1;
+}
+
+// 服务器下发会话修改消息
+message PushChatsRequest {
+  map<string, Chat> chats = 1;
+}
+
+message PushChatsResponse {
+}
+
+// 服务器下发新的会话成员列表
+//[逐渐废弃,机器人加入, 由pushchatchattersrequest代替]
+message PushChatUsersRequest {
+  enum Type {
+    ADD_USER = 1;
+    DELETE_USER = 2;
+  }
+  required Type type = 1;
+  required Chat chat = 2;
+  map<string, User> users = 3;
+  map<string, Message> messages = 4;
+  map<string, int64> ordered_weight = 5;
+}
+
+message PushChatUsersResponse {
+}
+
+// 服务器下发新的会话成员列表
+message PushChatChattersRequest {
+  enum Type {
+    ADD_CHATTER = 1;
+    DELETE_CHATTER = 2;
+  }
+  required Type type = 1;
+  required Chat chat = 2;
+  map<string, Chatter> chatters = 3;
+  map<string, Message> messages = 4;
+  map<string, int64> ordered_weight = 5;
+  optional string operator_id = 6;
+}
+
+message PushChatChattersResponse {
+}
+
+// 老接口，逐渐废弃
+message PushChatNewMessageCountNotice {
+    optional string chat_id = 1;
+    optional int32 new_message_count = 2;
+    optional int32 last_message_position = 3;   // chat 中最后一条消息的 position
+    repeated string message_ids = 4;            // 阅读操作中阅读的消息 id 列表
+    optional string last_message_id = 9;         // 临时字段
+}
+
+// 新接口
+message PushChatMessageReadStateNotice {
+    optional string chat_id = 1;
+    optional int32 new_message_count = 2;
+    optional int32 last_message_position = 3;   // chat 中最后一条消息的 position
+    repeated string message_ids = 4;            // 阅读操作中阅读的消息 id 列表
+    optional string last_message_id = 9;         // 临时字段
+}
+
+message PatchChatSettingRequest {    // 设置单个chatSetting
+    required string chat_id = 1;
+    optional ChatSetting chat_setting = 2;
+}
+
+message PatchChatSettingResponse {
+    optional string chat_id = 1;
+    optional ChatSetting chat_setting = 2;
+}
+
+message PushChatSettingResponse {    // 下发单个chatSetting,命名不规范，待废弃
+    optional string chat_id = 1;
+    optional ChatSetting chat_setting = 2;
+}
+
+message PushChatSettingNotice {    // 服务器下发单个chatSetting
+    optional string chat_id = 1;
+    optional ChatSetting chat_setting = 2;
+}
+
+message PullChatSettingsRequest {    // 客户端拉取用户单个或多个chatSetting
+    repeated string chat_ids = 1;
+}
+
+message PullChatSettingsResponse {
+    map<string, ChatSetting> chat_settings = 1; // key为chat_id，value为chatSetting
+}
+
+// 客户端拉取用户所有的chatSetting，
+// 不给update_time,根据user_id拉取群消息设置，只返回数据库中有的chat_id及对应的设置，未会返回的chat_id其消息默认是提醒的
+// 给update_time，返回update_time以后有变动的chat_id及对应的设置，未返回的默认设置没有变动
+message PullAllChatSettingsRequest {
+    optional int64 update_time = 1 [default = 0];
+}
+
+message PullAllChatSettingsResponse {
+    map<string, ChatSetting> chat_settings = 1; // key为chat_id，value为chatSetting
+}
+
+message PullGroupChatsRequest {
+    enum Type {
+        MANAGE = 1;
+        JOIN = 2;
+    }
+    required Type type = 1;
+    optional int64 update_time = 2 [default = 0];
+    optional int32 count = 3 [default = 20];
+}
+
+message PullGroupChatsResponse {
+    repeated string chat_ids = 1;
+    optional bool has_more = 2;
+    // chat_id 与 join_time 对应关系
+    map<string, int64> chat_join_times = 3;
+    // chat_id 与 create_time 对应关系
+    map<string, int64> chat_create_times = 4;
+}

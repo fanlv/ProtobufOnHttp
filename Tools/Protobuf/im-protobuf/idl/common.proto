@@ -1,0 +1,10 @@
+syntax = "proto2";
+
+option go_package="git.byted.org/ee/lark/im-protobuf/improto/common";
+option java_package="com.ss.android.lark.pb";
+
+// 由于长连接没有状态码，BaseResp 应该包含在所有服务器返回包中，以标识服务器处理状态。
+message BaseResp {
+    required int32 status = 1 [default = 0]; // 0为没有出错，其他值各个业务逻辑自拟
+    optional string message = 2; // 错误消息
+}

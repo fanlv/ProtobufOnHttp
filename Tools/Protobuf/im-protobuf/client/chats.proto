@@ -1,0 +1,147 @@
+syntax = "proto2";
+option java_package = "com.bytedance.lark.pb";
+
+import "entities.proto";
+
+// GetRecentChats: async + async
+
+message GetRecentChatsRequest {
+}
+
+message GetRecentChatsResponse {
+    required Entity entity            = 1;
+}
+
+// GetChatChatters: sync + async
+
+message GetChatChattersRequest {
+    required string chat_id           = 1;
+}
+
+message GetChatChattersResponse {
+    map<string, int64> ordered_weight = 1;
+    required Entity entity            = 2;
+}
+
+// CreateP2PChats: async
+
+message CreateP2PChatsRequest {
+    repeated string chatter_ids       = 1;
+}
+
+message CreateP2PChatsResponse {
+    required Entity entity            = 1;
+}
+
+// CreateChat: async
+
+message CreateChatRequest {
+    required Chat.Type type            = 1;
+    repeated string chatter_ids        = 2;
+    optional string group_name         = 3 [default = ""];
+    optional string group_desc         = 4 [default = ""];
+    optional bool is_public            = 5 [default = false];
+
+    optional string from_chat_id       = 6 [default = ""];
+    repeated string init_message_ids   = 7;
+}
+
+message CreateChatResponse {
+    required string chat_id            = 1;
+    required Entity entity             = 2;
+}
+
+// AddChatChatters: async
+
+message AddChatChattersRequest {
+    required string chat_id            = 1;
+    repeated string chatter_ids        = 2;
+}
+
+message AddChatChattersResponse {
+
+}
+
+// DeleteChatChatters: async
+
+message DeleteChatChattersRequest {
+    required string chat_id            = 1;
+    repeated string chatter_ids        = 2;
+}
+
+message DeleteChatChattersResponse {
+
+}
+
+// UpdateChat: async
+
+message UpdateChatRequest {
+    required string chat_id            = 1;
+    optional string name               = 2;
+    optional bytes icon_data           = 3;
+    optional string description        = 4;
+    optional string announcement       = 5;
+    optional int64 owner_id            = 6;
+    optional int32 chatter_count       = 7;
+    optional bool is_archive           = 8 [default = false];
+    optional bool is_public            = 9 [default = false];
+    optional bool is_inner             = 10 [default = false];
+    optional int64 organization_id     = 11 [default = 0];
+    optional bool is_group_companies   = 12 [default = false];
+    optional int64 group_companies_id  = 13 [default = 0];
+    optional bool is_remind            = 14 [default = true];
+    optional bool is_hidden            = 15 [default = false];
+}
+
+message UpdateChatResponse {
+    required string chat_id            = 1;
+    required Entity entity             = 2;
+}
+
+// MGetChats: sync + async
+
+message MGetChatsRequest {
+    repeated string chat_ids           = 1;
+}
+
+message MGetChatsResponse {
+    required Entity entity             = 1;
+}
+
+// PushChatChatters: push
+
+message PushChatChattersResponse {
+  enum Type {
+    ADD_CHATTER                        = 1;
+    DELETE_CHATTER                     = 2;
+  }
+  required Type type                   = 1;
+  required Chat chat                   = 2;
+  map<string, int64> ordered_weight    = 5;
+  optional string operator_id          = 6;
+  optional Entity entity               = 7;
+}
+
+// GetMyGroupChats: async
+
+message GetMyGroupChatsRequest {
+    enum Type {
+        MANAGE                         = 1;
+        JOIN                           = 2;
+    }
+    required Type type                 = 1;
+
+    // 如果拉取 manage 类型的会话，为创建时间；
+    // 如果拉取 join 类型的会话，为加入时间；
+    optional int64 time                = 2 [default = 0];
+    optional int32 count               = 3 [default = 20];
+}
+
+message GetMyGroupChatsResponse {
+    repeated Chat chats                = 1;
+
+    // 如果拉取 manage 类型的会话，为最小的创建时间；
+    // 如果拉取 join 类型的会话，为最小的加入时间；
+    optional int64 min_time            = 2;
+    optional bool has_more             = 3 [default = false];
+}

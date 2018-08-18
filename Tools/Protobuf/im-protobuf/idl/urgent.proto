@@ -1,0 +1,100 @@
+syntax = "proto2";
+
+option go_package = "git.byted.org/ee/lark/im-protobuf/improto/messages";
+option java_package = "com.ss.android.lark.pb";
+
+import "entities.proto";
+
+message PutUrgentRequest {
+    required string message_id = 1;
+    repeated string chatter_ids = 2;
+    optional Urgent.Type urgent_type = 3;
+}
+
+message PutUrgentResponse {
+    optional Urgent urgent = 1;
+    repeated string chatter_ids = 2;
+    map<string, string> urgent_ack_ids = 3;
+}
+
+message PutUrgentAckRequest {
+    required string message_id = 1;
+    optional string urgent_ack_id = 2;
+}
+
+message PutUrgentAckResponse {
+    optional string message_id = 1;
+}
+
+message ConfirmUrgentAckByIdRequest {
+    optional string urgent_ack_id = 1;
+}
+
+message ConfirmUrgentAckByIdResponse {
+
+}
+
+message PushUrgentRequest {
+    required string message_id = 1;
+    optional string send_chatter_id = 2;
+    optional int64 send_time = 3;
+    optional string chat_id = 4;
+    map<string, string> urgent_ack_ids = 5; //废弃字段，为了兼容sdk1.1.6
+    optional string urgent_ack_id = 6;
+    optional Urgent urgent = 7; //接口变化，新版本将原来的返回切换成返回7，8两个pb实体，push给自己不同设备(推给自己只用urgent)
+    optional UrgentAck urgent_ack = 8; //接口变化，新版本将原来的返回切换成返回7，8两个pb实体，push给被加急的人(推给收加急的人，7，8都需要)
+}
+
+message PushUrgentAckRequest {
+    required string message_id = 1;
+    optional string ack_chatter_id = 2;
+    optional Urgent.Type urgent_type = 3;
+    optional string chat_id = 4;
+    optional string urgent_ack_id = 5;
+    optional UrgentAck urgent_ack = 6; //接口变化，新版本将原来的返回切换成返回这个pb实体
+}
+
+message PullUrgentWaitingAckRequest {
+
+}
+
+message PullUrgentWaitingAckResponse {
+    repeated Urgent urgents = 1;
+    repeated UrgentAck urgent_acks = 2;
+}
+
+message PullUrgentsAckStatusRequest {
+    repeated string message_ids = 1;
+}
+
+message PullUrgentsAckStatusResponse {
+    message UrgentStatus {
+        enum Type {
+            FROM_ME = 1;
+            TO_ME = 2;
+        }
+        optional Type type = 1;
+        repeated string init_chatter_ids = 2;
+        repeated string ack_chatter_ids = 3;
+
+        optional bool is_ack = 4;
+    }
+    message PhoneStatus {
+        repeated string success_chatter_ids = 1;
+        repeated string failed_chatter_ids = 2;
+    }
+    map<string, UrgentStatus> urgent_status = 1;
+    map<string, PhoneStatus> phone_status = 2;
+    message UrgentAckList {
+        repeated UrgentAck urgent_ack_list = 1; //同一条message对应的urgent_ack_list
+    }
+    map<string, UrgentAckList> urgent_acks = 3; //新版本使用这个urgent_acks，包含全部ack列表以及状态
+}
+
+message PullUrgentPhoneNumberRequest {
+
+}
+
+message PullUrgentPhoneNumberResponse {
+    repeated string phone_numbers = 1;
+}

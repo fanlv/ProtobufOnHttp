@@ -1,0 +1,331 @@
+syntax = "proto2";
+option java_package = "com.bytedance.lark.pb";
+
+import "commands.proto";
+
+message Image {
+  optional string key = 1;
+  repeated string urls = 2;
+  optional int32 width = 3;
+  optional int32 height = 4;
+}
+
+message Urgent {
+    enum Type {
+        APP = 1;
+        SMS = 2;
+        PHONE = 3;
+    }
+
+    enum Status {
+        ME_CREATE = 1;
+        ME_ACK = 2;
+        URGENT_ME = 3;
+        ACK_ME = 4;
+    }
+
+    required string id  = 1;
+    required string message_id = 2;
+    optional Type type = 3;
+    optional int64 send_time = 4;
+    optional Status status = 5;
+    optional string ack_chatter_id = 6;
+}
+
+message ImageSet {
+  optional string key = 1;
+  optional Image origin = 2;
+  optional Image thumbnail = 3;
+}
+
+enum FileType {
+    DEFAULT = 1;
+    DOC = 2;
+    PDF = 3;
+    PPT = 4;
+    XLS = 5;
+    ZIP = 6;
+    PSD = 7;
+    AI = 8;
+    SKETCH = 9;
+}
+
+message Content {
+    // Rich Text、Text、Email
+    optional string title                   = 1 [default = ""]; // 富文本格式
+    optional string text                    = 2 [default = ""];
+
+    // Image
+    optional ImageSet image                 = 3;
+
+    // File
+    optional string key                     = 4 [default = ""]; // 文件/音频消息的 key
+    optional string name                    = 5 [default = ""];
+    optional int64 size                     = 6 [default = 0]; // 文件/音频消息的 size
+    optional string mime                    = 7 [default = ""];
+
+    // System
+    optional string template                = 8 [default = ""];  // 模版，如 '{from_user} 邀请 {target_user} 加入群聊'
+    map<string, string> values              = 9;                 // 模版中的值，如 {from_user: '张三', target_user: '李四'}
+
+    // Audio
+    optional int32 duration                 = 10;
+
+    // File
+    optional FileType type                  = 11;
+
+    enum SystemType {
+      // 客户端只关注该类型的系统消息，枚举值和服务端一致。
+      USER_CHECK_OTHERS_TELEPHONE           = 11; //  {from_user} 拨打（查看）了 {to_chatters} 的电话
+    }
+    optional SystemType system_type         = 12;
+
+    // File
+    optional string file_path               = 100;
+
+    // Email
+    repeated string attachments             = 200;
+}
+
+message Message {
+    enum Type {
+        // TEXT_IMAGE 类型已经删去 reseved 1;
+        POST = 2;
+        FILE = 3;
+        TEXT = 4;
+        IMAGE = 5;
+        SYSTEM = 6;
+        AUDIO = 7;
+        EMAIL = 8;
+    }
+
+    message Reaction {
+        required string type                = 1; // reaction 类型, 例如“thumb up”
+        repeated string chatter_ids         = 2; // 此 reaction 相关的 chatter
+    }
+
+    required string id                      = 1;
+    required Type type                      = 2;
+    required string chat_id                 = 3;
+    required int64 create_time              = 5;
+    required int64 update_time              = 6;
+    required string root_id                 = 7; // 本消息的根级祖先消息 id，默认为自己的 id
+    required Content content                = 8;
+    repeated Reaction reactions             = 9; // 消息的 Reaction 信息
+    required int32 unread_count             = 10; // 未读数
+
+    optional string from_id                 = 20 [default = ""];
+    optional bool should_notify             = 21 [default = true]; // 是否通知
+    optional bool is_deleted                = 22 [default = false]; // 是否删除
+    optional bool is_edited                 = 23 [default = false]; // 是否编辑
+    optional int32 reply_count              = 24 [default = 0]; // 回复数
+    optional int32 position                 = 25 [default = 0];
+    optional string cid                     = 26 [default = ""];
+    optional bool me_read                   = 27 [default = false]; // 本人是否已读
+    optional string reminder_id             = 28 [default = ""];
+    optional string parent_source_id        = 29 [default = ""];
+    optional string root_source_id          = 30 [default = ""];
+    optional bool is_urgent                 = 31 [default = false];
+    optional string urgent_id               = 32 [default = ""];
+    optional string parent_id               = 33 [default = ""];
+    optional bool is_at_me                  = 34 [default = false];
+    optional bool is_at_all                 = 35 [default = false];
+    optional bool is_truncated              = 36 [default = false];
+    optional int32 read_count               = 37 [default = 0];
+    repeated string unread_chatter_ids      = 38;
+    optional string text_draft_id           = 39 [default = ""];
+    optional string post_draft_id           = 40 [default = ""];
+}
+
+message Notice {
+    enum State {
+        NEW    = 1;
+        DELETE = 2;
+    }
+    enum Type {
+        NORMAL = 1;
+        AT = 2;
+        URGENT = 3;
+        REACTION = 4;
+    }
+    message Extra {
+        optional string root_id             = 1 [default = ""];
+        optional string urgent_id           = 2 [default = ""];
+        optional string chat_id             = 3 [default = ""]; // 该消息所属会话 id
+        optional Chat.Type chat_type        = 4;
+    }
+    required string message_id              = 1; // 通知的消息 id
+    required State state                    = 2; // 状态：通知/撤回
+    required string content                 = 3; // 通知内容
+    required string title                   = 4; // 通知标题
+    required Type type                      = 5;
+    required string key                     = 6; // notice 唯一标识
+    optional Extra extra                    = 7;
+}
+
+message QuasiContent {
+    // Rich Text、Text、Email
+    optional string title                   = 1 [default = ""]; // 富文本格式
+    optional string text                    = 2 [default = ""];
+
+    // Image
+    optional bytes image                    = 3;
+
+    // File
+    optional string path                    = 4 [default = ""]; // 文件路径
+
+    // Audio
+    optional bytes audio                    = 5;
+    optional int32 duration                 = 6;
+
+    // Email
+    repeated string attachments             = 20;
+}
+
+message QuasiMessage {
+    required string cid                     = 1;
+    required string chat_id                 = 2;
+    optional string root_id                 = 3 [default = ""];
+    required Message.Type type              = 4;
+    required bool should_notify             = 5;
+    optional int32 position                 = 6 [default = 0];
+    required Content content                = 7;
+    optional string parent_id               = 8 [default = ""];
+    optional string parent_source_id        = 9 [default = ""];
+    optional string root_source_id          = 10[default = ""];
+    required string id                      = 11;
+    required string from_id                 = 12;
+    required int64 create_time              = 13;
+    optional int32 unread_count             = 14 [default = 0];
+    optional int32 read_count               = 15 [default = 1]; // 默认消息发送者已读
+    repeated string unread_chatter_ids      = 16;
+}
+
+message Name2Pinyin {
+    required string name                    = 1;
+    required string pinyin                  = 2;
+}
+
+message Chat {
+  enum Type {
+    P2P = 1;
+    GROUP = 2;
+  }
+  required string id                        = 1;
+  required Type type                        = 2 [default = P2P];
+  required string name                      = 3;
+  optional string last_message_id           = 4 [default = ""];
+  optional int32 last_message_position      = 5 [default = 0];
+  optional int32 new_message_count          = 6 [default = 0];
+  required int64 update_time                = 7;
+  optional bool is_hidden                   = 8 [default = false];
+
+  // P2P Chat
+  optional string chatter_id                = 11 [default = ""];  // P2P 对话另外一个人的 ID
+
+  // Group Chat
+  optional string description               = 20 [default = ""];
+  optional Image avatar                     = 21;                   // 为保证数据一致性，P2P 的头像请使用 Chatter 的头像
+  optional string owner_id                  = 22 [default = ""];
+  optional int32 chatter_count              = 23 [default = 0];
+  optional int32 user_count                 = 24 [default = 0];
+  optional bool is_department               = 25 [default = false]; // 部门群
+  optional bool is_public                   = 26 [default = false]; // 公开群
+  optional bool is_archived                 = 27 [default = false]; // 已归档
+  optional bool is_deleted                  = 28 [default = false];
+  optional bool is_remind                   = 29 [default = true]; // 是否提醒
+  optional string name_pinyin               = 30 [default = ""];
+  repeated Name2Pinyin name2pinyin          = 31;
+  optional bool is_customer_service         = 32 [default = false];
+  optional string text_draft_id             = 33 [default = ""];
+  optional string post_draft_id             = 34 [default = ""];
+}
+
+message Chatter {
+    enum Type {
+        //描述会话参与者的类型
+        USER = 1;
+        BOT = 2;
+    }
+    required string id                      = 1;
+    required string name                    = 2;
+    required Type type                      = 3;
+    optional ImageSet avatar                = 4;
+    required int64 update_time              = 5;
+    required string name_pinyin             = 6;
+
+    // 机器人
+    optional string creator_id              = 7 [default = ""];
+
+    // 用户
+    optional bool is_resigned               = 8 [default = false];
+    optional bool is_registered             = 9 [default = true];
+    repeated Name2Pinyin name2pinyin        = 10;
+}
+
+message Department {
+    required string id                        = 1;
+    required string name                      = 2;
+    optional string parent_id                 = 3 [default = ""];
+    optional string leader_id                 = 4 [default = ""];
+    optional int32 member_count               = 5 [default = 0];
+}
+
+message FeedCard {
+    enum FeedType {
+        INBOX                                 = 1;
+        DONE                                  = 2;
+    }
+    enum EntityType {
+        CHAT                                  = 1;
+        EMAIL                                 = 2;
+    }
+    required string id                        = 1;
+    required EntityType entity_type           = 2;
+    optional FeedType feed_type               = 3;
+    optional int64 update_time                = 4 [default = 0];
+}
+
+message Entity {
+    map<string, Message> messages             = 1;
+    map<string, Chat> chats                   = 2;
+    map<string, Chatter> chatters             = 3;
+    map<string, QuasiMessage> quasi_messages  = 4;
+    map<string, Department> departments       = 5;
+    map<string, Urgent> urgents               = 6;
+    map<string, Draft> drafts                 = 7;
+    map<string, FeedCard> feed_cards          = 8;
+    map<string, EmailThread> email_threads    = 9;
+}
+
+message LarkError {
+    optional string message                   = 1 [default = ""];
+    optional int32 code                       = 2 [default = 0]; // 错误码请参考：https://wiki.bytedance.net/pages/viewpage.action?pageId=88686455
+}
+
+message Packet {
+    optional Command cmd                      = 1;
+    required uint32 status                    = 2 [default = 0];
+    optional bytes payload                    = 3;
+    optional string message                   = 4;
+}
+
+message Draft {
+    enum Type {
+        TEXT                                  = 1;
+        POST                                  = 2;
+    }
+    optional string id                        = 1 [default = ""];
+    optional string chat_id                   = 2 [default = ""];
+    optional string message_id                = 3 [default = ""];
+    required string content                   = 4;
+    required Type type                        = 5;
+}
+
+message EmailThread {
+    required string id                        = 1; // 第一封邮件的 id
+    optional string owner_id                  = 2 [default = ""];
+    optional string last_message_id           = 3 [default = ""];
+    optional int32 new_message_count          = 4 [default = 0];
+    optional int32 last_message_position      = 5 [default = 0];
+}

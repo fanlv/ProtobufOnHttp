@@ -1,0 +1,20 @@
+syntax = "proto2";
+
+option java_package="com.ss.android.lark.pb";
+
+
+import "entities.proto";
+
+// user service
+service UserGreeter {
+    rpc get (PullUsersRequest) returns (PullUsersResponse) {}
+}
+
+// user mget
+message PullUsersRequest {
+   repeated string user_ids = 1;
+}
+
+message PullUsersResponse {
+    map<string, User> users = 1;
+}
