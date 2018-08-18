@@ -14,7 +14,7 @@
 		E549C0FE2011E8FC00C54B70 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E549C0FD2011E8FC00C54B70 /* Assets.xcassets */; };
 		E549C1012011E8FC00C54B70 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E549C0FF2011E8FC00C54B70 /* LaunchScreen.storyboard */; };
 		E549C1042011E8FC00C54B70 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E549C1032011E8FC00C54B70 /* main.m */; };
-		E549C10F2011FD7B00C54B70 /* FansMedal.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = E549C10E2011FD7A00C54B70 /* FansMedal.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E557DFB22127F18E00AAB8A4 /* FansMedal.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = E557DFB12127F18E00AAB8A4 /* FansMedal.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,8 +31,8 @@
 		E549C1002011E8FC00C54B70 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E549C1022011E8FC00C54B70 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E549C1032011E8FC00C54B70 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		E549C10D2011FD7A00C54B70 /* FansMedal.pbobjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FansMedal.pbobjc.h; path = ../../Tools/Protobuf/FansMedal.pbobjc.h; sourceTree = "<group>"; };
-		E549C10E2011FD7A00C54B70 /* FansMedal.pbobjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FansMedal.pbobjc.m; path = ../../Tools/Protobuf/FansMedal.pbobjc.m; sourceTree = "<group>"; };
+		E557DFB02127F18E00AAB8A4 /* FansMedal.pbobjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FansMedal.pbobjc.h; sourceTree = "<group>"; };
+		E557DFB12127F18E00AAB8A4 /* FansMedal.pbobjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FansMedal.pbobjc.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,8 +89,8 @@
 				E549C0F52011E8FC00C54B70 /* AppDelegate.m */,
 				E549C0F72011E8FC00C54B70 /* ViewController.h */,
 				E549C0F82011E8FC00C54B70 /* ViewController.m */,
-				E549C10D2011FD7A00C54B70 /* FansMedal.pbobjc.h */,
-				E549C10E2011FD7A00C54B70 /* FansMedal.pbobjc.m */,
+				E557DFB02127F18E00AAB8A4 /* FansMedal.pbobjc.h */,
+				E557DFB12127F18E00AAB8A4 /* FansMedal.pbobjc.m */,
 				E549C0FA2011E8FC00C54B70 /* Main.storyboard */,
 				E549C0FD2011E8FC00C54B70 /* Assets.xcassets */,
 				E549C0FF2011E8FC00C54B70 /* LaunchScreen.storyboard */,
@@ -225,9 +225,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E557DFB22127F18E00AAB8A4 /* FansMedal.pbobjc.m in Sources */,
 				E549C0F92011E8FC00C54B70 /* ViewController.m in Sources */,
 				E549C1042011E8FC00C54B70 /* main.m in Sources */,
-				E549C10F2011FD7B00C54B70 /* FansMedal.pbobjc.m in Sources */,
 				E549C0F62011E8FC00C54B70 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

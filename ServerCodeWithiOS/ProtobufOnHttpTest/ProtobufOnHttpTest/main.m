@@ -27,7 +27,7 @@ int main(int argc, const char * argv[]) {
                                          for (int i = 0; i<=2 ; i++) {
                                              RoomInfo *roomInfo = [[RoomInfo alloc] init];
                                              roomInfo.md5 = @"437f4ea71386e873d6f5aa31abb9e873";
-                                             roomInfo.zipURL = @"https://staticlive.douyucdn.cn/storage/webpic_resources/upload/fans_medal_resource/17cd936c18ca95bf3acfd7068bec9818.zip";
+                                             roomInfo.zipURL = @"https://www.test.com/storage/webpic_resources/upload/fans_medal_resource/17cd936c18ca95bf3acfd7068bec9818.zip";
                                              roomInfo.startTime = 1515125290;
                                              roomInfo.endTime = 1517846400;
                                              roomInfo.roomId = @"special_47";
