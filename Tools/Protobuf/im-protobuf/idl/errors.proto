@@ -1,9 +1,0 @@
-syntax = "proto2";
-
-option go_package="git.byted.org/ee/lark/im-protobuf/improto/errors";
-option java_package="com.ss.android.lark.pb";
-
-message LarkError {
-  optional string message = 1;
-  optional int32 code = 2;
-}

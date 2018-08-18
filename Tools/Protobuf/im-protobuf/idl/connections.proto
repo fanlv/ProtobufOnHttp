@@ -1,8 +1,0 @@
-syntax = "proto2";
-
-option java_package="com.ss.android.lark.pb";
-
-message ServerDisconnect {
-    required uint32 status = 1; // 断开状态码
-    map<string, string> extra = 2; // 额外信息（如果有）
-}
